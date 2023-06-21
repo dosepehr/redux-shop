@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import CustomNumeralNumericFormat from './Price';
 import { useGetProductQuery } from '../redux/reducers/apiSlice';
-
+import ProductForm from './ProductForm';
 const Product = () => {
     const { id } = useParams();
     const { data: product, isLoading } = useGetProductQuery(id);
@@ -51,7 +51,7 @@ const Product = () => {
                             />
                         </div>
                     </div>
-
+                    <ProductForm product={product} />
                 </div>
             </>
         </div>
