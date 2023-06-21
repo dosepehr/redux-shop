@@ -1,4 +1,11 @@
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/reducers/cartSlice';
+
 const ProductForm = ({ product }) => {
+    const dispatch = useDispatch();
+    const handleAddtoCart = () => {
+        dispatch(addToCart(product));
+    };
     return (
         <div className='w-full'>
             <div className='flex justify-start space-x-2 w-full'>
@@ -20,7 +27,7 @@ const ProductForm = ({ product }) => {
                 className='pt-3 pb-2 bg-palette-primary text-white w-full mt-2 rounded-sm font-primary font-semibold text-xl flex 
                       justify-center items-baseline  hover:bg-palette-dark'
                 aria-label='cart-button'
-                onClick={() => {}}
+                onClick={() => handleAddtoCart()}
             >
                 اضافه به سبد خرید
                 <i
