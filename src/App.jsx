@@ -1,13 +1,13 @@
 import Navbar from './components/Navbar';
-import Header from './components/Header';
 import { Outlet } from 'react-router-dom';
 
 function App() {
     return (
         <>
-            <Navbar />
-            <Header />
-            <Outlet />
+            <div className='flex flex-col min-h-screen'>
+                <Navbar />
+                <Outlet />
+            </div>
         </>
     );
 }

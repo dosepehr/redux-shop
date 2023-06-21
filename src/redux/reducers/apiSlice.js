@@ -7,7 +7,10 @@ export const apiSlice = createApi({
         getProducts: builder.query({
             query: () => '/stickers',
         }),
+        getProduct: builder.query({
+            query: (id) => `/stickers/${id}`,
+        }),
     }),
 });
 
-export const { useGetProductsQuery } = apiSlice;
+export const { useGetProductsQuery, useGetProductQuery } = apiSlice;

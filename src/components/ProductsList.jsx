@@ -1,10 +1,12 @@
 import React from 'react';
 import { useGetProductsQuery } from '../redux/reducers/apiSlice';
 import ProductCard from './ProductCard';
+import Header from './Header';
 const ProductsList = () => {
     const { data, isLoading } = useGetProductsQuery();
     return (
         <>
+            <Header />
             {isLoading ? (
                 <p>درحال بارگذاری</p>
             ) : (
