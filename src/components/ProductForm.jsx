@@ -1,10 +1,12 @@
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/reducers/cartSlice';
+import { useState } from 'react';
 
 const ProductForm = ({ product }) => {
+    const [Qty, setQty] = useState(1);
     const dispatch = useDispatch();
     const handleAddtoCart = () => {
-        dispatch(addToCart(product));
+        dispatch(addToCart({ ...product, cartQty: Qty }));
     };
     return (
         <div className='w-full'>
@@ -18,6 +20,8 @@ const ProductForm = ({ product }) => {
                         name='quantity'
                         min='1'
                         step='1'
+                        value={Qty}
+                        onChange={(e) => setQty(e.target.value)}
                         className='text-gray-900 form-input border border-gray-300 w-16 rounded-sm focus:border-palette-light focus:ring-palette-light'
                     />
                 </div>
