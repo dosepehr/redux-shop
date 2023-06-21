@@ -66,9 +66,32 @@ const cartSlice = createSlice({
             });
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         },
+        decreaseCart(state, action) {
+            const itemIndex = state.cartItems.findIndex(
+                (item) => item.id === action.payload.id
+            );
+
+            if (state.cartItems[itemIndex].cartQty > 1) {
+                state.cartItems[itemIndex].cartQty -= 1;
+
+                toast.info('تعداد کاهش یافت', {
+                    position: 'bottom-right',
+                });
+            } else if (state.cartItems[itemIndex].cartQty === 1) {
+                state.cartItems = state.cartItems.filter(
+                    (item) => item.id !== action.payload.id
+                );
+
+                toast.error('محصول از سبد خرید حذف شد', {
+                    position: 'bottom-right',
+                });
+            }
+
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
     },
 });
 
-export const { addToCart, getTotals, removeFromCart } = cartSlice.actions;
+export const { addToCart, getTotals, removeFromCart,decreaseCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
