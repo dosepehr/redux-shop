@@ -1,9 +1,16 @@
+import Navbar from './components/Navbar';
+import Header from './components/Header';
+import { Outlet } from 'react-router-dom';
+
 function App() {
     return (
-        <h1 className="text-3xl font-bold underline text-center mt-10">
-            سلام دنیا
-        </h1>
+        <>
+            <Navbar />
+            <Header />
+            <Outlet />
+        </>
     );
 }
 
 export default App;
+
