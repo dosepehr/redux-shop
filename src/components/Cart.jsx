@@ -2,7 +2,11 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import CustomNumeralNumericFormat from './Price';
-import { getTotals } from '../redux/reducers/cartSlice';
+import {
+    addToCart,
+    decreaseCart,
+    getTotals,
+} from '../redux/reducers/cartSlice';
 import { removeFromCart } from '../redux/reducers/cartSlice';
 const Cart = () => {
     const cart = useSelector((state) => state.cart);
@@ -14,6 +18,14 @@ const Cart = () => {
 
     const handleRemoveFromCart = (item) => {
         dispatch(removeFromCart(item));
+    };
+
+    const handleQty = (e, item) => {
+        if (e.target.value > item.cartQty) {
+            dispatch(addToCart({ ...item, cartQty: 1 }));
+        } else {
+            dispatch(decreaseCart(item));
+        }
     };
 
     return (
@@ -73,12 +85,11 @@ const Cart = () => {
                                                 inputMode='numeric'
                                                 id='variant-quantity'
                                                 name='variant-quantity'
-                                                min='1'
                                                 step='1'
                                                 value={item.cartQty}
-                                                // onChange={(e) =>
-                                                //     handleQty(e, item)
-                                                // }
+                                                onChange={(e) =>
+                                                    handleQty(e, item)
+                                                }
                                                 className='text-gray-900 form-input border border-gray-300 w-16 rounded-sm focus:border-palette-light focus:ring-palette-light'
                                             />
                                         </td>
