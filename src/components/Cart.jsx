@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CustomNumeralNumericFormat from './Price';
 import { getTotals } from '../redux/reducers/cartSlice';
-const CartTable = () => {
+import { removeFromCart } from '../redux/reducers/cartSlice';
+const Cart = () => {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
@@ -11,7 +12,9 @@ const CartTable = () => {
         dispatch(getTotals());
     }, [cart, dispatch]);
 
-
+    const handleRemoveFromCart = (item) => {
+        dispatch(removeFromCart(item));
+    };
 
     return (
         <div className='container mx-auto mb-20 min-h-screen'>
@@ -93,9 +96,9 @@ const CartTable = () => {
                                             <button
                                                 aria-label='delete-item'
                                                 className=''
-                                                // onClick={() =>
-                                                //     handleRemoveFromCart(item)
-                                                // }
+                                                onClick={() =>
+                                                    handleRemoveFromCart(item)
+                                                }
                                             >
                                                 <i
                                                     className='fa fa-times w-8 h-8 text-palette-primary border border-palette-primary p-1 hover:bg-palette-lighter'
@@ -156,4 +159,4 @@ const CartTable = () => {
     );
 };
 
-export default CartTable;
+export default Cart;

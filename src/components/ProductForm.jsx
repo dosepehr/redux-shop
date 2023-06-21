@@ -1,12 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/reducers/cartSlice';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ProductForm = ({ product }) => {
+    const navigate = useNavigate();
     const [Qty, setQty] = useState(1);
     const dispatch = useDispatch();
     const handleAddtoCart = () => {
-        dispatch(addToCart({ ...product, cartQty: Qty }));
+        dispatch(addToCart({ ...product, cartQty: +Qty }));
+        navigate('/cart');
     };
     return (
         <div className='w-full'>

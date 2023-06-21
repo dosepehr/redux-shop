@@ -1,4 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 const initialState = {
@@ -20,9 +20,11 @@ const cartSlice = createSlice({
             if (existingProduct >= 0) {
                 state.cartItems[existingProduct] = {
                     ...state.cartItems[existingProduct],
-                    cartQty: state.cartItems[existingProduct].cartQty + 1,
+                    cartQty:
+                        state.cartItems[existingProduct].cartQty +
+                        action.payload.cartQty,
                 };
-                toast.info('تعداد افزایش یافت', { position: 'top-right' });
+                toast.info('تعداد افزایش یافت', { position: 'bottom-right' });
             } else {
                 let tempProductItem = {
                     ...action.payload,
@@ -30,7 +32,7 @@ const cartSlice = createSlice({
                 };
                 state.cartItems.push(tempProductItem);
                 toast.success('محصول به سبد خرید اضافه شد', {
-                    position: 'top-right',
+                    position: 'bottom-right',
                 });
             }
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
@@ -55,9 +57,18 @@ const cartSlice = createSlice({
             state.cartTotalQty = qty;
             state.cartTotalAmount = total;
         },
+        removeFromCart(state, action) {
+            state.cartItems = state.cartItems.filter(
+                (item) => item.id !== action.payload.id
+            );
+            toast.error('محصول از سبد خرید حذف شد', {
+                position: 'bottom-right',
+            });
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
     },
 });
 
-export const { addToCart, getTotals } = cartSlice.actions;
+export const { addToCart, getTotals, removeFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
