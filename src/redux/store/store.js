@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '../reducers/apiSlice';
-import cartSlice from '../reducers/cartSlice';
+import cartSlice, { getTotals } from '../reducers/cartSlice';
 
 const store = configureStore({
     reducer: {
@@ -12,5 +12,5 @@ const store = configureStore({
 });
 
 store.dispatch(apiSlice.endpoints.getProducts.initiate());
-
+store.dispatch(getTotals());
 export default store;
