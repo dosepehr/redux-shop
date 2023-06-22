@@ -8,6 +8,7 @@ import {
     getTotals,
 } from '../redux/reducers/cartSlice';
 import { removeFromCart } from '../redux/reducers/cartSlice';
+import QtyInput from './QtyInput';
 const Cart = () => {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
@@ -19,15 +20,12 @@ const Cart = () => {
     const handleRemoveFromCart = (item) => {
         dispatch(removeFromCart(item));
     };
-
-    const handleQty = (e, item) => {
-        if (e.target.value > item.cartQty) {
-            dispatch(addToCart({ ...item, cartQty: 1 }));
-        } else {
-            dispatch(decreaseCart(item));
-        }
+    const handleAddtoCart = (item) => {
+        dispatch(addToCart({ ...item, cartQty: 1 }));
     };
-
+    const handleDecreaseCart = (item) => {
+        dispatch(decreaseCart(item));
+    };
     return (
         <div className='container mx-auto mb-20 min-h-screen'>
             {cart.cartItems.length === 0 ? (
@@ -80,17 +78,14 @@ const Cart = () => {
                                             </Link>
                                         </td>
                                         <td className='font-primary font-medium px-4 sm:px-6 py-4'>
-                                            <input
-                                                type='number'
-                                                inputMode='numeric'
-                                                id='variant-quantity'
-                                                name='variant-quantity'
-                                                step='1'
-                                                value={item.cartQty}
-                                                onChange={(e) =>
-                                                    handleQty(e, item)
+                                            <QtyInput
+                                                qty={item.cartQty}
+                                                incrementQty={() =>
+                                                    handleAddtoCart(item)
                                                 }
-                                                className='text-gray-900 form-input border border-gray-300 w-16 rounded-sm focus:border-palette-light focus:ring-palette-light'
+                                                decrementQty={() =>
+                                                    handleDecreaseCart(item)
+                                                }
                                             />
                                         </td>
                                         <td className='font-primary text-base font-light px-4 sm:px-6 py-4 hidden sm:table-cell'>
