@@ -4,6 +4,7 @@ import ProductsList from '../components/ProductsList';
 import Product from '../components/Product';
 import NotFound from '../components/NotFound';
 import Cart from '../components/Cart';
+import PaginateItems from '../components/PaginateItems';
 
 const router = createBrowserRouter([
     {
@@ -13,7 +14,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <ProductsList />,
+                element: <PaginateItems productsPerPage={6} />,
             },
             {
                 path: '/products/:id',
