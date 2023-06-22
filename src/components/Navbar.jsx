@@ -3,15 +3,16 @@ import CustomNumeralNumericFormat from './Price';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { searchProduct } from '../redux/reducers/productsSlice';
+import { selectAll } from '../redux/reducers/cartSlice';
 const Navbar = () => {
+    const cart = useSelector(selectAll);
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
-    const cartItems = useSelector((state) => state.cart.cartItems);
 
     const handleSearchQuery = (e) => {
         setSearchQuery(e.target.value);
     };
-    
+
     useEffect(() => {
         dispatch(searchProduct({ searchQuery }));
     }, [dispatch, searchQuery]);
@@ -40,10 +41,10 @@ const Navbar = () => {
                             className='fa fa-cart-arrow-down text-palette-primary m-auto'
                             style={{ fontSize: '30px' }}
                         ></i>
-                        {cartItems.length === 0 ? null : (
+                        {cart.length === 0 ? null : (
                             <div className='absolute top-0 right-0 text-xs bg-yellow-300 text-gray-900 font-semibold rounded-full py-1 px-2 transform translate-x-10 -translate-y-3'>
                                 <CustomNumeralNumericFormat
-                                    value={cartItems.length}
+                                    value={cart.length}
                                     thousandSeparator=','
                                 />
                             </div>

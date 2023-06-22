@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '../reducers/apiSlice';
-import cartSlice, { getTotals } from '../reducers/cartSlice';
+import cartSlice, { getTotals, populateCart } from '../reducers/cartSlice';
 import productsSlice from '../reducers/productsSlice';
 
 const store = configureStore({
@@ -14,5 +14,6 @@ const store = configureStore({
 });
 
 store.dispatch(apiSlice.endpoints.getProducts.initiate());
+store.dispatch(populateCart());
 store.dispatch(getTotals());
 export default store;
