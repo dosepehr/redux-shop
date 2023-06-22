@@ -1,8 +1,20 @@
 import { Link } from 'react-router-dom';
 import CustomNumeralNumericFormat from './Price';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { searchProduct } from '../redux/reducers/productsSlice';
 const Navbar = () => {
+    const dispatch = useDispatch();
+    const [searchQuery, setSearchQuery] = useState('');
     const cartItems = useSelector((state) => state.cart.cartItems);
+
+    const handleSearchQuery = (e) => {
+        setSearchQuery(e.target.value);
+    };
+    
+    useEffect(() => {
+        dispatch(searchProduct({ searchQuery }));
+    }, [dispatch, searchQuery]);
     return (
         <header className='border-b border-palette-lighter sticky top-0 z-20 bg-white'>
             <div className='flex items-center justify-between mx-auto max-w-6xl px-6 pb-2 pt-4 md:pt-6'>
@@ -13,6 +25,15 @@ const Navbar = () => {
                         </span>
                     </h1>
                 </Link>
+                <div className='border-palette-primary border-2'>
+                    <input
+                        type='text'
+                        className='p-2 px-4'
+                        placeholder='جستجو کنید'
+                        value={searchQuery}
+                        onChange={(e) => handleSearchQuery(e)}
+                    />
+                </div>
                 <div>
                     <Link to='/cart' className='relative'>
                         <i

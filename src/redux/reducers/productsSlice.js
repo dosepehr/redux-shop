@@ -8,9 +8,13 @@ const initialState = {
 const productsSlice = createSlice({
     name: 'products',
     initialState,
-
+    reducers: {
+        searchProduct(state, action) {
+            state.searchQuery = action.payload.searchQuery;
+        },
+    },
 });
 
-export const {  } = productsSlice.actions;
+export const { searchProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;
